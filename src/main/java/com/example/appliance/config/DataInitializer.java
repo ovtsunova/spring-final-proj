@@ -52,10 +52,10 @@ public class DataInitializer {
             }
 
             Role adminRole = new Role();
-            adminRole.setRoleLabel("ADMIN");
+            adminRole.setRoleLabel("ROLE_ADMIN");
 
             Role userRole = new Role();
-            userRole.setRoleLabel("USER");
+            userRole.setRoleLabel("ROLE_USER");
 
             roleRepository.save(adminRole);
             roleRepository.save(userRole);
@@ -151,7 +151,7 @@ public class DataInitializer {
             product1.setStockQuantity(15);
             product1.setWarrantyMonths(24);
             product1.setColor("Серебристый");
-            product1.setImageUrl("samsung_fridge.jpg");
+            product1.setImageUrl("https://image-us.samsung.com/SamsungUS/home/appliances/refrigerators/rb34c602esa/01-RB34C602ESA-001.jpg");
             product1.setAvailabilityStatus("В наличии");
             product1.setCategory(category1);
             product1.setBrand(brand1);
@@ -164,7 +164,7 @@ public class DataInitializer {
             product2.setStockQuantity(10);
             product2.setWarrantyMonths(24);
             product2.setColor("Белый");
-            product2.setImageUrl("lg_washer.jpg");
+            product2.setImageUrl("https://www.lg.com/ru/images/washing-machines/md07500457/gallery/F2V5HS0W-D-01.jpg");
             product2.setAvailabilityStatus("В наличии");
             product2.setCategory(category2);
             product2.setBrand(brand2);
@@ -177,7 +177,7 @@ public class DataInitializer {
             product3.setStockQuantity(7);
             product3.setWarrantyMonths(36);
             product3.setColor("Черный");
-            product3.setImageUrl("bosch_tv.jpg");
+            product3.setImageUrl("https://media3.bosch-home.com/ProductShots/Unified/2000x1500/BSH-55UHD-01.png");
             product3.setAvailabilityStatus("В наличии");
             product3.setCategory(category3);
             product3.setBrand(brand3);
@@ -190,7 +190,7 @@ public class DataInitializer {
             product4.setStockQuantity(20);
             product4.setWarrantyMonths(12);
             product4.setColor("Синий");
-            product4.setImageUrl("philips_vacuum.jpg");
+            product4.setImageUrl("https://www.philips.ru/c-dam/b2c/master/vacuum-cleaners/xd3110/XD3110-main-2000px.png");
             product4.setAvailabilityStatus("В наличии");
             product4.setCategory(category4);
             product4.setBrand(brand4);
