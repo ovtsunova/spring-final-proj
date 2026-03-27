@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/admin-layout :: layout(~{::section})}">
+<section>
+    <h1>Просмотр оплаты</h1>
+
+    <p><strong>ID:</strong> <span th:text="${payment.idPayment}"></span></p>
+    <p><strong>Сумма:</strong> <span th:text="${payment.amount}"></span></p>
+    <p><strong>Способ оплаты:</strong> <span th:text="${payment.paymentMethod}"></span></p>
+    <p><strong>Статус:</strong> <span th:text="${payment.paymentStatus}"></span></p>
+    <p><strong>Дата:</strong> <span th:text="${payment.paymentDate}"></span></p>
+    <p><strong>Заказ:</strong> <span th:text="${payment.orderInfo.idOrder}"></span></p>
+
+    <a class="btn btn-secondary" th:href="@{/admin/payments}">Назад</a>
+    <a class="btn btn-primary" th:href="@{/admin/payments/{id}/edit(id=${payment.idPayment})}">Редактировать</a>
+</section>
+</body>
+</html>

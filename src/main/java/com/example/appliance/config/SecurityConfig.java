@@ -52,13 +52,16 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/",
                                 "/login",
+                                "/register",
                                 "/register/**",
                                 "/css/**",
                                 "/js/**",
                                 "/images/**"
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/products/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

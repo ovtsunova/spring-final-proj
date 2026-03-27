@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/admin-layout :: layout(~{::section})}">
+<section>
+    <h1 th:text="${formTitle}"></h1>
+
+    <form th:action="${review.idReview == null} ? @{/admin/reviews} : @{/admin/reviews/{id}(id=${review.idReview})}"
+          th:object="${review}" method="post">
+
+        <label>Оценка:</label>
+        <input type="number" min="1" max="5" th:field="*{rating}">
+        <div class="field-error" th:errors="*{rating}"></div>
+
+        <label>Комментарий:</label>
+        <textarea th:field="*{comment}"></textarea>
+        <div class="field-error" th:errors="*{comment}"></div>
+
+        <label>Дата отзыва:</label>
+        <input type="text" th:field="*{reviewDate}">
+        <div class="field-error" th:errors="*{reviewDate}"></div>
+
+        <label>Клиент:</label>
+        <select name="customerId">
+            <option th:each="customer : ${customers}"
+                    th:value="${customer.idCustomer}"
+                    th:text="${customer.lastName + ' ' + customer.firstName}"
+                    th:selected="${review.customer != null and review.customer.idCustomer == customer.idCustomer}">
+            </option>
+        </select>
+
+        <label>Товар:</label>
+        <select name="productId">
+            <option th:each="product : ${products}"
+                    th:value="${product.idProduct}"
+                    th:text="${product.productName}"
+                    th:selected="${review.product != null and review.product.idProduct == product.idProduct}">
+            </option>
+        </select>
+
+        <button class="btn btn-success" type="submit">Сохранить</button>
+        <a class="btn btn-secondary" th:href="@{/admin/reviews}">Назад</a>
+    </form>
+</section>
+</body>
+</html>

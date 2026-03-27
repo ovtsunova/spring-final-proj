@@ -1,49 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Товары</title>
-</head>
-<body>
-<h1>Товары</h1>
+<body th:replace="~{fragments/admin-layout :: layout(~{::section})}">
+<section>
+    <h1>Товары</h1>
 
-<form th:action="@{/logout}" method="post" style="display:inline;">
-    <button type="submit">Выйти</button>
-</form>
+    <a class="btn btn-success" th:href="@{/admin/products/new}">Добавить товар</a>
 
-<a th:href="@{/admin/products/new}">Добавить товар</a>
-<a th:href="@{/admin/categories}">Категории</a>
-<a th:href="@{/admin/brands}">Бренды</a>
-
-<table border="1" cellpadding="8">
-    <tr>
-        <th>ID</th>
-        <th>Изображение</th>
-        <th>Название</th>
-        <th>Модель</th>
-        <th>Цена</th>
-        <th>Категория</th>
-        <th>Бренд</th>
-        <th>Действия</th>
-    </tr>
-    <tr th:each="product : ${products}">
-        <td th:text="${product.idProduct}"></td>
-        <td>
-            <img th:src="${product.imageUrl}" alt="img" width="100">
-        </td>
-        <td th:text="${product.productName}"></td>
-        <td th:text="${product.model}"></td>
-        <td th:text="${product.price}"></td>
-        <td th:text="${product.category.categoryName}"></td>
-        <td th:text="${product.brand.brandName}"></td>
-        <td>
-            <a th:href="@{/admin/products/{id}(id=${product.idProduct})}">Просмотр</a>
-            <a th:href="@{/admin/products/{id}/edit(id=${product.idProduct})}">Редактировать</a>
-            <form th:action="@{/admin/products/{id}/delete(id=${product.idProduct})}" method="post" style="display:inline;">
-                <button type="submit">Удалить</button>
-            </form>
-        </td>
-    </tr>
-</table>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Изображение</th>
+            <th>Название</th>
+            <th>Модель</th>
+            <th>Цена</th>
+            <th>Категория</th>
+            <th>Бренд</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.idProduct}"></td>
+            <td>
+                <img class="product-preview" th:src="${product.imageUrl}" alt="Изображение товара">
+            </td>
+            <td th:text="${product.productName}"></td>
+            <td th:text="${product.model}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category != null ? product.category.categoryName : '-'}"></td>
+            <td th:text="${product.brand != null ? product.brand.brandName : '-'}"></td>
+            <td th:text="${product.availabilityStatus}"></td>
+            <td class="actions">
+                <a class="btn btn-primary" th:href="@{/admin/products/{id}(id=${product.idProduct})}">Просмотр</a>
+                <a class="btn btn-secondary" th:href="@{/admin/products/{id}/edit(id=${product.idProduct})}">Редактировать</a>
+                <form th:action="@{/admin/products/{id}/delete(id=${product.idProduct})}" method="post" style="display:inline;">
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</section>
 </body>
 </html>

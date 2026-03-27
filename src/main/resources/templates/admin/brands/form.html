@@ -1,30 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${formTitle}"></title>
-</head>
-<body>
-<h1 th:text="${formTitle}"></h1>
+<body th:replace="~{fragments/admin-layout :: layout(~{::section})}">
+<section>
+    <h1 th:text="${formTitle}"></h1>
 
-<form th:action="${brand.idBrand == null} ? @{/admin/brands} : @{/admin/brands/{id}(id=${brand.idBrand})}"
-      th:object="${brand}"
-      method="post">
+    <form th:action="${brand.idBrand == null} ? @{/admin/brands} : @{/admin/brands/{id}(id=${brand.idBrand})}"
+          th:object="${brand}"
+          method="post">
 
-    <div>
         <label>Название:</label>
         <input type="text" th:field="*{brandName}">
-        <div th:if="${#fields.hasErrors('brandName')}" th:errors="*{brandName}"></div>
-    </div>
+        <div class="field-error" th:errors="*{brandName}"></div>
 
-    <div>
         <label>Страна:</label>
         <input type="text" th:field="*{country}">
-    </div>
+        <div class="field-error" th:errors="*{country}"></div>
 
-    <button type="submit">Сохранить</button>
-</form>
-
-<a th:href="@{/admin/brands}">Назад</a>
+        <button class="btn btn-success" type="submit">Сохранить</button>
+        <a class="btn btn-secondary" th:href="@{/admin/brands}">Назад</a>
+    </form>
+</section>
 </body>
 </html>

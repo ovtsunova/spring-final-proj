@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/admin-layout :: layout(~{::section})}">
+<section>
+    <h1>Просмотр клиента</h1>
+
+    <p><strong>ID:</strong> <span th:text="${customer.idCustomer}"></span></p>
+    <p><strong>Имя:</strong> <span th:text="${customer.firstName}"></span></p>
+    <p><strong>Фамилия:</strong> <span th:text="${customer.lastName}"></span></p>
+    <p><strong>Отчество:</strong> <span th:text="${customer.patronymic}"></span></p>
+    <p><strong>Телефон:</strong> <span th:text="${customer.phoneNumber}"></span></p>
+    <p><strong>Адрес:</strong> <span th:text="${customer.address}"></span></p>
+    <p><strong>Аккаунт:</strong> <span th:text="${customer.account.userLogin}"></span></p>
+
+    <a class="btn btn-secondary" th:href="@{/admin/customers}">Назад</a>
+    <a class="btn btn-primary" th:href="@{/admin/customers/{id}/edit(id=${customer.idCustomer})}">Редактировать</a>
+</section>
+</body>
+</html>

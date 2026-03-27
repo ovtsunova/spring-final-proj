@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Просмотр товара</title>
-</head>
-<body>
-<h1>Просмотр товара</h1>
+<body th:replace="~{fragments/admin-layout :: layout(~{::section})}">
+<section>
+    <h1>Просмотр товара</h1>
 
-<p><b>ID:</b> <span th:text="${product.idProduct}"></span></p>
-<p><img th:src="${product.imageUrl}" alt="img" width="250"></p>
-<p><b>Название:</b> <span th:text="${product.productName}"></span></p>
-<p><b>Модель:</b> <span th:text="${product.model}"></span></p>
-<p><b>Описание:</b> <span th:text="${product.description}"></span></p>
-<p><b>Цена:</b> <span th:text="${product.price}"></span></p>
-<p><b>Количество:</b> <span th:text="${product.stockQuantity}"></span></p>
-<p><b>Гарантия:</b> <span th:text="${product.warrantyMonths}"></span></p>
-<p><b>Цвет:</b> <span th:text="${product.color}"></span></p>
-<p><b>Статус:</b> <span th:text="${product.availabilityStatus}"></span></p>
-<p><b>Категория:</b> <span th:text="${product.category.categoryName}"></span></p>
-<p><b>Бренд:</b> <span th:text="${product.brand.brandName}"></span></p>
+    <p><strong>ID:</strong> <span th:text="${product.idProduct}"></span></p>
+    <p>
+        <img class="product-preview" th:src="${product.imageUrl}" alt="Изображение товара">
+    </p>
+    <p><strong>Название:</strong> <span th:text="${product.productName}"></span></p>
+    <p><strong>Модель:</strong> <span th:text="${product.model}"></span></p>
+    <p><strong>Описание:</strong> <span th:text="${product.description}"></span></p>
+    <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p>
+    <p><strong>Количество:</strong> <span th:text="${product.stockQuantity}"></span></p>
+    <p><strong>Гарантия:</strong> <span th:text="${product.warrantyMonths}"></span></p>
+    <p><strong>Цвет:</strong> <span th:text="${product.color}"></span></p>
+    <p><strong>Статус:</strong> <span th:text="${product.availabilityStatus}"></span></p>
+    <p><strong>Категория:</strong> <span th:text="${product.category != null ? product.category.categoryName : '-'}"></span></p>
+    <p><strong>Бренд:</strong> <span th:text="${product.brand != null ? product.brand.brandName : '-'}"></span></p>
 
-<a th:href="@{/admin/products}">Назад</a>
-<a th:href="@{/admin/products/{id}/edit(id=${product.idProduct})}">Редактировать</a>
+    <a class="btn btn-secondary" th:href="@{/admin/products}">Назад</a>
+    <a class="btn btn-primary" th:href="@{/admin/products/{id}/edit(id=${product.idProduct})}">Редактировать</a>
+</section>
 </body>
 </html>

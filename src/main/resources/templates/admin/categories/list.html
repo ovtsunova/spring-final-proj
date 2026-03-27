@@ -1,35 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Категории</title>
-</head>
-<body>
-<h1>Категории</h1>
+<body th:replace="~{fragments/admin-layout :: layout(~{::section})}">
+<section>
+    <h1>Категории</h1>
 
-<a th:href="@{/admin/categories/new}">Добавить категорию</a>
-<a th:href="@{/admin/products}">Товары</a>
-<a th:href="@{/admin/brands}">Бренды</a>
+    <a class="btn btn-success" th:href="@{/admin/categories/new}">Добавить категорию</a>
 
-<table border="1" cellpadding="8">
-    <tr>
-        <th>ID</th>
-        <th>Название</th>
-        <th>Описание</th>
-        <th>Действия</th>
-    </tr>
-    <tr th:each="category : ${categories}">
-        <td th:text="${category.idCategory}"></td>
-        <td th:text="${category.categoryName}"></td>
-        <td th:text="${category.description}"></td>
-        <td>
-            <a th:href="@{/admin/categories/{id}(id=${category.idCategory})}">Просмотр</a>
-            <a th:href="@{/admin/categories/{id}/edit(id=${category.idCategory})}">Редактировать</a>
-            <form th:action="@{/admin/categories/{id}/delete(id=${category.idCategory})}" method="post" style="display:inline;">
-                <button type="submit">Удалить</button>
-            </form>
-        </td>
-    </tr>
-</table>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.idCategory}"></td>
+            <td th:text="${category.categoryName}"></td>
+            <td th:text="${category.description}"></td>
+            <td class="actions">
+                <a class="btn btn-primary" th:href="@{/admin/categories/{id}(id=${category.idCategory})}">Просмотр</a>
+                <a class="btn btn-secondary" th:href="@{/admin/categories/{id}/edit(id=${category.idCategory})}">Редактировать</a>
+                <form th:action="@{/admin/categories/{id}/delete(id=${category.idCategory})}" method="post" style="display:inline;">
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</section>
 </body>
 </html>
