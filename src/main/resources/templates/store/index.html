@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Магазин бытовой техники</title>
@@ -16,18 +17,34 @@
             padding: 20px 40px;
         }
 
-        header h1 {
-            margin: 0;
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .top-links {
-            margin-top: 10px;
+        .header-top h1 {
+            margin: 0;
         }
 
         .top-links a {
             color: white;
             text-decoration: none;
-            margin-right: 15px;
+            margin-left: 15px;
+        }
+
+        .top-links form {
+            display: inline;
+            margin-left: 15px;
+        }
+
+        .top-links button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
         .container {
@@ -79,10 +96,30 @@
 </head>
 <body>
 <header>
-    <h1>Магазин бытовой техники</h1>
-    <div class="top-links">
-        <a th:href="@{/login}">Вход</a>
-        <a th:href="@{/register}">Регистрация</a>
+    <div class="header-top">
+        <h1>Магазин бытовой техники</h1>
+
+        <div class="top-links">
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">Вход</a>
+                <a th:href="@{/register}">Регистрация</a>
+            </div>
+
+            <div sec:authorize="isAuthenticated()">
+                <span>Вы вошли как: <strong sec:authentication="name"></strong></span>
+
+                <a sec:authorize="hasRole('USER')" th:href="@{/profile}">Профиль</a>
+                <a sec:authorize="hasRole('USER')" th:href="@{/my-orders}">Мои заказы</a>
+
+                <a sec:authorize="hasAnyRole('ADMIN','MANAGER')" th:href="@{/staff/products}">
+                    Служебная панель
+                </a>
+
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+        </div>
     </div>
 </header>
 

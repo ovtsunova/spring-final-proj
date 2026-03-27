@@ -6,14 +6,12 @@
 
     <table>
         <tr>
-            <th>ID</th>
             <th>Дата</th>
             <th>Статус</th>
             <th>Сумма</th>
             <th>Действия</th>
         </tr>
         <tr th:each="order : ${orders}">
-            <td th:text="${order.idOrder}"></td>
             <td th:text="${order.orderDate}"></td>
             <td th:text="${order.orderStatus}"></td>
             <td th:text="${order.totalAmount}"></td>

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @Table(name = "Reviews")
@@ -22,9 +24,9 @@ public class Review {
     @Size(max = 1000, message = "Комментарий не должен превышать 1000 символов.")
     private String comment;
 
-    @NotBlank(message = "Дата отзыва не может быть пустой.")
-    @Size(max = 30, message = "Дата отзыва не должна превышать 30 символов.")
-    private String reviewDate;
+    // Используем LocalDate для даты
+    @NotNull(message = "Дата отзыва не может быть пустой.")
+    private LocalDate reviewDate;
 
     @NotNull(message = "Клиент должен быть указан.")
     @ManyToOne
@@ -35,4 +37,11 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "product_ID")
     private Product product;
+
+    @PrePersist
+    public void setReviewDate() {
+        if (this.reviewDate == null) {
+            this.reviewDate = LocalDate.now();
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.example.appliance.config;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.boot.CommandLineRunner;
@@ -269,14 +270,14 @@ public class DataInitializer {
             Review review1 = new Review();
             review1.setRating(5);
             review1.setComment("Отличный холодильник, работает тихо и вместительный.");
-            review1.setReviewDate("2026-03-24");
+            review1.setReviewDate(LocalDate.of(2026, 3, 24));
             review1.setCustomer(customer1);
             review1.setProduct(product1);
 
             Review review2 = new Review();
             review2.setRating(4);
             review2.setComment("Хороший пылесос, удобный и компактный.");
-            review2.setReviewDate("2026-03-23");
+            review2.setReviewDate(LocalDate.of(2026, 3, 23));
             review2.setCustomer(customer2);
             review2.setProduct(product4);
 

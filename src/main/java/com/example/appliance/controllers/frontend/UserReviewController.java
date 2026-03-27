@@ -41,7 +41,7 @@ public class UserReviewController {
     public String createForm(@PathVariable Integer productId, Model model) {
         Product product = productService.findById(productId);
         Review review = new Review();
-        review.setProduct(product);
+        review.setProduct(product); 
 
         model.addAttribute("review", review);
         model.addAttribute("product", product);
@@ -53,6 +53,7 @@ public class UserReviewController {
                                @Valid @ModelAttribute("review") Review review,
                                BindingResult bindingResult,
                                Model model) {
+
         Product product = productService.findById(productId);
         Customer currentCustomer = currentUserService.getCurrentCustomer();
 
@@ -63,6 +64,7 @@ public class UserReviewController {
 
         review.setCustomer(currentCustomer);
         review.setProduct(product);
+
         reviewService.save(review);
 
         return "redirect:/my-reviews";
@@ -87,6 +89,7 @@ public class UserReviewController {
                                @Valid @ModelAttribute("review") Review review,
                                BindingResult bindingResult,
                                Model model) {
+
         Review existingReview = reviewService.findById(id);
         Customer currentCustomer = currentUserService.getCurrentCustomer();
 
@@ -104,6 +107,7 @@ public class UserReviewController {
         existingReview.setReviewDate(review.getReviewDate());
 
         reviewService.save(existingReview);
+
         return "redirect:/my-reviews";
     }
 
@@ -117,6 +121,7 @@ public class UserReviewController {
         }
 
         reviewService.deleteById(id);
+
         return "redirect:/my-reviews";
     }
 }
