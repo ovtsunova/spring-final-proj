@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body th:replace="~{fragments/staff-layout :: layout(~{::section})}">
+<section>
+    <h1>Клиенты</h1>
+
+    <a sec:authorize="hasRole('ADMIN')"
+       class="btn btn-success"
+       th:href="@{/staff/customers/new}">
+        Добавить клиента
+    </a>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>ФИО</th>
+            <th>Телефон</th>
+            <th>Адрес</th>
+            <th>Аккаунт</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.idCustomer}"></td>
+            <td th:text="${customer.lastName + ' ' + customer.firstName + ' ' + (customer.patronymic != null ? customer.patronymic : '')}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+            <td th:text="${customer.address}"></td>
+            <td th:text="${customer.account != null ? customer.account.userLogin : '-'}"></td>
+            <td class="actions">
+                <a class="btn btn-primary"
+                   th:href="@{/staff/customers/{id}(id=${customer.idCustomer})}">
+                    Просмотр
+                </a>
+
+                <a sec:authorize="hasRole('ADMIN')"
+                   class="btn btn-secondary"
+                   th:href="@{/staff/customers/{id}/edit(id=${customer.idCustomer})}">
+                    Редактировать
+                </a>
+
+                <form sec:authorize="hasRole('ADMIN')"
+                      th:action="@{/staff/customers/{id}/delete(id=${customer.idCustomer})}"
+                      method="post"
+                      style="display:inline;">
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>

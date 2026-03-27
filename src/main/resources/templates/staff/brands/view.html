@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/staff-layout :: layout(~{::section})}">
+<section>
+    <h1>Просмотр бренда</h1>
+
+    <p><strong>ID:</strong> <span th:text="${brand.idBrand}"></span></p>
+    <p><strong>Название:</strong> <span th:text="${brand.brandName}"></span></p>
+    <p><strong>Страна:</strong> <span th:text="${brand.country}"></span></p>
+
+    <a class="btn btn-secondary" th:href="@{/staff/brands}">Назад</a>
+    <a class="btn btn-primary" th:href="@{/staff/brands/{id}/edit(id=${brand.idBrand})}">Редактировать</a>
+</section>
+</body>
+</html>

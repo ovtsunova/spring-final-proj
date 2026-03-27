@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/staff-layout :: layout(~{::section})}">
+<section>
+    <h1>Товары</h1>
+
+    <a class="btn btn-success" th:href="@{/staff/products/new}">Добавить товар</a>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Изображение</th>
+            <th>Название</th>
+            <th>Модель</th>
+            <th>Цена</th>
+            <th>Категория</th>
+            <th>Бренд</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.idProduct}"></td>
+            <td>
+                <img class="product-preview" th:src="${product.imageUrl}" alt="Изображение товара">
+            </td>
+            <td th:text="${product.productName}"></td>
+            <td th:text="${product.model}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category != null ? product.category.categoryName : '-'}"></td>
+            <td th:text="${product.brand != null ? product.brand.brandName : '-'}"></td>
+            <td th:text="${product.availabilityStatus}"></td>
+            <td class="actions">
+                <a class="btn btn-primary" th:href="@{/staff/products/{id}(id=${product.idProduct})}">Просмотр</a>
+                <a class="btn btn-secondary" th:href="@{/staff/products/{id}/edit(id=${product.idProduct})}">Редактировать</a>
+                <form th:action="@{/staff/products/{id}/delete(id=${product.idProduct})}" method="post" style="display:inline;">
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>
