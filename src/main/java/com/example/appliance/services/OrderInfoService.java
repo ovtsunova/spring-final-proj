@@ -1,11 +1,10 @@
 package com.example.appliance.services;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.appliance.models.OrderInfo;
 import com.example.appliance.repositories.OrderInfoRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderInfoService {
@@ -23,6 +22,10 @@ public class OrderInfoService {
     public OrderInfo findById(Integer id) {
         return orderInfoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Заказ не найден."));
+    }
+
+    public List<OrderInfo> findByCustomerId(Integer customerId) {
+        return orderInfoRepository.findByCustomer_IdCustomer(customerId);
     }
 
     public OrderInfo save(OrderInfo orderInfo) {

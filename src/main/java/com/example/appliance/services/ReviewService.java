@@ -1,11 +1,10 @@
 package com.example.appliance.services;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.appliance.models.Review;
 import com.example.appliance.repositories.ReviewRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ReviewService {
@@ -23,6 +22,10 @@ public class ReviewService {
     public Review findById(Integer id) {
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Отзыв не найден."));
+    }
+
+    public List<Review> findByCustomerId(Integer customerId) {
+        return reviewRepository.findByCustomer_IdCustomer(customerId);
     }
 
     public Review save(Review review) {

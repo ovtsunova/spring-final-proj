@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle} ?: 'Магазин'">Магазин</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 18px 32px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left a, .nav-right a {
+            color: white;
+            text-decoration: none;
+            margin-right: 16px;
+        }
+
+        .nav-right form {
+            display: inline;
+        }
+
+        .nav-right button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        main {
+            padding: 30px;
+        }
+
+        .page-card {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        table th {
+            background: #f3f4f6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #16a34a;
+            color: white;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 14px;
+            box-sizing: border-box;
+        }
+
+        .field-error {
+            color: red;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="layout(content)">
+    <header>
+        <div class="nav">
+            <div class="nav-left">
+                <a th:href="@{/}">Главная</a>
+                <a th:href="@{/my-orders}">Мои заказы</a>
+                <a th:href="@{/my-reviews}">Мои отзывы</a>
+                <a th:href="@{/profile}">Профиль</a>
+            </div>
+
+            <div class="nav-right">
+                <span>Вы вошли как: <strong sec:authentication="name"></strong></span>
+                <form th:action="@{/logout}" method="post" style="display:inline; margin-left: 16px;">
+                    <button type="submit">Выйти</button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-card" th:replace="${content}"></div>
+    </main>
+</div>
+</body>
+</html>

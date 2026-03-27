@@ -108,8 +108,11 @@ public class SecurityConfig {
 
                         .requestMatchers("/products/**").authenticated()
 
-                        .requestMatchers("/profile/**", "/my-orders/**", "/my-reviews/**")
-                        .hasRole("USER")
+                        .requestMatchers(
+                                "/profile/**",
+                                "/my-orders/**",
+                                "/my-reviews/**"
+                        ).hasRole("USER")
 
                         .anyRequest().authenticated()
                 )

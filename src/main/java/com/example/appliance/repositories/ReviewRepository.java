@@ -1,11 +1,10 @@
 package com.example.appliance.repositories;
 
-import java.util.List;
-
+import com.example.appliance.models.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.appliance.models.Review;
+import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
