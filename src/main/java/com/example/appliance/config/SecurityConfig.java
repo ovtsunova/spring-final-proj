@@ -4,6 +4,7 @@ import com.example.appliance.repositories.AccountRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -45,6 +46,30 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationSuccessHandler customSuccessHandler() {
+        return (request, response, authentication) -> {
+            boolean isAdmin = authentication.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
+
+            boolean isManager = authentication.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_MANAGER"));
+
+            boolean isUser = authentication.getAuthorities().stream()
+                    .anyMatch(authority -> authority.getAuthority().equals("ROLE_USER"));
+
+            if (isAdmin) {
+                response.sendRedirect("/admin");
+            } else if (isManager) {
+                response.sendRedirect("/manager");
+            } else if (isUser) {
+                response.sendRedirect("/");
+            } else {
+                response.sendRedirect("/login");
+            }
+        };
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
                                                    DaoAuthenticationProvider authProvider) throws Exception {
         http
@@ -60,13 +85,31 @@ public class SecurityConfig {
                                 "/js/**",
                                 "/images/**"
                         ).permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                        .requestMatchers("/admin/accounts/**", "/admin/roles/**").hasRole("ADMIN")
+
+                        .requestMatchers(
+                                "/admin/products/**",
+                                "/admin/categories/**",
+                                "/admin/brands/**",
+                                "/admin/customers/**",
+                                "/admin/orders/**",
+                                "/admin/order-items/**",
+                                "/admin/reviews/**",
+                                "/admin/payments/**",
+                                "/manager/**"
+                        ).hasAnyRole("ADMIN", "MANAGER")
+
                         .requestMatchers("/products/**").authenticated()
+
+                        .requestMatchers("/profile/**", "/my-orders/**", "/my-reviews/**")
+                        .hasAnyRole("USER", "ADMIN", "MANAGER")
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/admin/products", true)
+                        .successHandler(customSuccessHandler())
                         .permitAll()
                 )
                 .logout(logout -> logout

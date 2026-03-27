@@ -56,10 +56,14 @@ public class DataInitializer {
             Role adminRole = new Role();
             adminRole.setRoleLabel("ADMIN");
 
+            Role managerRole = new Role();
+            managerRole.setRoleLabel("MANAGER");
+
             Role userRole = new Role();
             userRole.setRoleLabel("USER");
 
             roleRepository.save(adminRole);
+            roleRepository.save(managerRole);
             roleRepository.save(userRole);
 
             Account adminAccount = new Account();
@@ -67,6 +71,12 @@ public class DataInitializer {
             adminAccount.setUserPassword(passwordEncoder.encode("Admin123!"));
             adminAccount.setEmail("admin@appliance.com");
             adminAccount.setRole(adminRole);
+
+            Account managerAccount = new Account();
+            managerAccount.setUserLogin("manager");
+            managerAccount.setUserPassword(passwordEncoder.encode("Manager123!"));
+            managerAccount.setEmail("manager@appliance.com");
+            managerAccount.setRole(managerRole);
 
             Account userAccount1 = new Account();
             userAccount1.setUserLogin("ivanov");
@@ -81,6 +91,7 @@ public class DataInitializer {
             userAccount2.setRole(userRole);
 
             accountRepository.save(adminAccount);
+            accountRepository.save(managerAccount);
             accountRepository.save(userAccount1);
             accountRepository.save(userAccount2);
 
