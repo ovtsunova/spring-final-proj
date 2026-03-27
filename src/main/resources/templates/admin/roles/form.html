@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/admin-layout :: layout(~{::section})}">
+<section>
+    <h1 th:text="${formTitle}"></h1>
+
+    <form th:action="${role.idRole == null} ? @{/admin/roles} : @{/admin/roles/{id}(id=${role.idRole})}"
+          th:object="${role}"
+          method="post">
+
+        <label>Название роли:</label>
+        <input type="text" th:field="*{roleLabel}">
+        <div class="field-error" th:if="${#fields.hasErrors('roleLabel')}" th:errors="*{roleLabel}"></div>
+
+        <button class="btn btn-success" type="submit">Сохранить</button>
+        <a class="btn btn-secondary" th:href="@{/admin/roles}">Назад</a>
+    </form>
+</section>
+</body>
+</html>

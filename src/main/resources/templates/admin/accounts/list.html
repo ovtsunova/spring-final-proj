@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/admin-layout :: layout(~{::section})}">
+<section>
+    <h1>Аккаунты</h1>
+
+    <a class="btn btn-success" th:href="@{/admin/accounts/new}">Добавить аккаунт</a>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Логин</th>
+            <th>Email</th>
+            <th>Роль</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.idAccount}"></td>
+            <td th:text="${account.userLogin}"></td>
+            <td th:text="${account.email}"></td>
+            <td th:text="${account.role != null ? account.role.roleLabel : '-'}"></td>
+            <td class="actions">
+                <a class="btn btn-primary" th:href="@{/admin/accounts/{id}(id=${account.idAccount})}">Просмотр</a>
+                <a class="btn btn-secondary" th:href="@{/admin/accounts/{id}/edit(id=${account.idAccount})}">Редактировать</a>
+                <form th:action="@{/admin/accounts/{id}/delete(id=${account.idAccount})}" method="post" style="display:inline;">
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>
