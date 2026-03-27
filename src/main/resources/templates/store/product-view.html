@@ -3,72 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Карточка товара</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-
-        .product-wrapper {
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
-        }
-
-        .product-wrapper img {
-            width: 380px;
-            max-width: 100%;
-            border-radius: 10px;
-        }
-
-        .info {
-            flex: 1;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 14px;
-            border-radius: 6px;
-            background: #2563eb;
-            color: white;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-<div class="container">
-    <div class="product-wrapper">
-        <img th:src="${product.imageUrl}" alt="Товар">
 
-        <div class="info">
-            <h1 th:text="${product.productName}"></h1>
-            <p><strong>Модель:</strong> <span th:text="${product.model}"></span></p>
-            <p><strong>Описание:</strong> <span th:text="${product.description}"></span></p>
-            <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p>
-            <p><strong>Количество на складе:</strong> <span th:text="${product.stockQuantity}"></span></p>
-            <p><strong>Гарантия:</strong> <span th:text="${product.warrantyMonths}"></span></p>
-            <p><strong>Цвет:</strong> <span th:text="${product.color}"></span></p>
-            <p><strong>Категория:</strong> <span th:text="${product.category.categoryName}"></span></p>
-            <p><strong>Бренд:</strong> <span th:text="${product.brand.brandName}"></span></p>
+<main class="page-container">
+    <div class="card product-detail-card">
 
-            <a class="btn" th:href="@{/my-reviews/new/{productId}(productId=${product.idProduct})}">
-                Оставить отзыв
-            </a>
+        <div class="product-wrapper">
+            <div class="product-image">
+                <img th:src="${product.imageUrl}" alt="Товар">
+            </div>
 
-            <a class="btn" th:href="@{/}">Назад в каталог</a>
+            <div class="product-info">
+                <h1 th:text="${product.productName}"></h1>
+
+                <p>
+                    <strong>Модель:</strong>
+                    <span th:text="${product.model}"></span>
+                </p>
+
+                <p>
+                    <strong>Описание:</strong>
+                    <span th:text="${product.description}"></span>
+                </p>
+
+                <p>
+                    <strong>Цена:</strong>
+                    <span th:text="${product.price}"></span>
+                </p>
+
+                <p>
+                    <strong>Количество на складе:</strong>
+                    <span th:text="${product.stockQuantity}"></span>
+                </p>
+
+                <p>
+                    <strong>Гарантия:</strong>
+                    <span th:text="${product.warrantyMonths}"></span>
+                </p>
+
+                <p>
+                    <strong>Цвет:</strong>
+                    <span th:text="${product.color}"></span>
+                </p>
+
+                <p>
+                    <strong>Категория:</strong>
+                    <span th:text="${product.category.categoryName}"></span>
+                </p>
+
+                <p>
+                    <strong>Бренд:</strong>
+                    <span th:text="${product.brand.brandName}"></span>
+                </p>
+
+                <div class="product-actions">
+                    <a class="btn" th:href="@{/my-reviews/new/{productId}(productId=${product.idProduct})}">
+                        Оставить отзыв
+                    </a>
+
+                    <a class="btn btn-secondary" th:href="@{/}">
+                        Назад в каталог
+                    </a>
+                </div>
+            </div>
         </div>
+
     </div>
-</div>
+</main>
+
 </body>
 </html>
