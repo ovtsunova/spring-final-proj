@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,7 +44,8 @@ public class DataInitializer {
             OrderInfoRepository orderInfoRepository,
             OrderItemRepository orderItemRepository,
             ReviewRepository reviewRepository,
-            PaymentRepository paymentRepository
+            PaymentRepository paymentRepository,
+            BCryptPasswordEncoder passwordEncoder
     ) {
         return args -> {
 
@@ -62,19 +64,19 @@ public class DataInitializer {
 
             Account adminAccount = new Account();
             adminAccount.setUserLogin("admin");
-            adminAccount.setUserPassword("Admin123!");
+            adminAccount.setUserPassword(passwordEncoder.encode("Admin123!"));
             adminAccount.setEmail("admin@appliance.com");
             adminAccount.setRole(adminRole);
 
             Account userAccount1 = new Account();
             userAccount1.setUserLogin("ivanov");
-            userAccount1.setUserPassword("Ivanov123!");
+            userAccount1.setUserPassword(passwordEncoder.encode("Ivanov123!"));
             userAccount1.setEmail("ivanov@gmail.com");
             userAccount1.setRole(userRole);
 
             Account userAccount2 = new Account();
             userAccount2.setUserLogin("petrova");
-            userAccount2.setUserPassword("Petrova123!");
+            userAccount2.setUserPassword(passwordEncoder.encode("Petrova123!"));
             userAccount2.setEmail("petrova@gmail.com");
             userAccount2.setRole(userRole);
 

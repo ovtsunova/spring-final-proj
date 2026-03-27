@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${formTitle}"></title>
+</head>
+<body>
+<h1 th:text="${formTitle}"></h1>
+
+<form th:action="${product.idProduct == null} ? @{/admin/products} : @{/admin/products/{id}(id=${product.idProduct})}"
+      th:object="${product}"
+      method="post">
+
+    <div>
+        <label>Название:</label>
+        <input type="text" th:field="*{productName}">
+        <div th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></div>
+    </div>
+
+    <div>
+        <label>Модель:</label>
+        <input type="text" th:field="*{model}">
+        <div th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></div>
+    </div>
+
+    <div>
+        <label>Описание:</label>
+        <textarea th:field="*{description}"></textarea>
+    </div>
+
+    <div>
+        <label>Цена:</label>
+        <input type="number" step="0.01" th:field="*{price}">
+        <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    </div>
+
+    <div>
+        <label>Количество на складе:</label>
+        <input type="number" th:field="*{stockQuantity}">
+    </div>
+
+    <div>
+        <label>Гарантия (мес.):</label>
+        <input type="number" th:field="*{warrantyMonths}">
+    </div>
+
+    <div>
+        <label>Цвет:</label>
+        <input type="text" th:field="*{color}">
+    </div>
+
+    <div>
+        <label>Ссылка на изображение:</label>
+        <input type="text" th:field="*{imageUrl}">
+    </div>
+
+    <div>
+        <label>Статус наличия:</label>
+        <input type="text" th:field="*{availabilityStatus}">
+    </div>
+
+    <div>
+        <label>Категория:</label>
+        <select name="categoryId">
+            <option th:each="category : ${categories}"
+                    th:value="${category.idCategory}"
+                    th:text="${category.categoryName}"
+                    th:selected="${product.category != null and product.category.idCategory == category.idCategory}">
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <label>Бренд:</label>
+        <select name="brandId">
+            <option th:each="brand : ${brands}"
+                    th:value="${brand.idBrand}"
+                    th:text="${brand.brandName}"
+                    th:selected="${product.brand != null and product.brand.idBrand == brand.idBrand}">
+            </option>
+        </select>
+    </div>
+
+    <button type="submit">Сохранить</button>
+</form>
+
+<a th:href="@{/admin/products}">Назад</a>
+</body>
+</html>

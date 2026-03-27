@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${formTitle}"></title>
+</head>
+<body>
+<h1 th:text="${formTitle}"></h1>
+
+<form th:action="${category.idCategory == null} ? @{/admin/categories} : @{/admin/categories/{id}(id=${category.idCategory})}"
+      th:object="${category}"
+      method="post">
+
+    <div>
+        <label>Название:</label>
+        <input type="text" th:field="*{categoryName}">
+        <div th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}"></div>
+    </div>
+
+    <div>
+        <label>Описание:</label>
+        <textarea th:field="*{description}"></textarea>
+    </div>
+
+    <button type="submit">Сохранить</button>
+</form>
+
+<a th:href="@{/admin/categories}">Назад</a>
+</body>
+</html>

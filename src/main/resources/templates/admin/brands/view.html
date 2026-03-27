@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Просмотр бренда</title>
+</head>
+<body>
+<h1>Просмотр бренда</h1>
+
+<p><b>ID:</b> <span th:text="${brand.idBrand}"></span></p>
+<p><b>Название:</b> <span th:text="${brand.brandName}"></span></p>
+<p><b>Страна:</b> <span th:text="${brand.country}"></span></p>
+
+<a th:href="@{/admin/brands}">Назад</a>
+<a th:href="@{/admin/brands/{id}/edit(id=${brand.idBrand})}">Редактировать</a>
+</body>
+</html>

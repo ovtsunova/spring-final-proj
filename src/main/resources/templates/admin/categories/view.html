@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Просмотр категории</title>
+</head>
+<body>
+<h1>Просмотр категории</h1>
+
+<p><b>ID:</b> <span th:text="${category.idCategory}"></span></p>
+<p><b>Название:</b> <span th:text="${category.categoryName}"></span></p>
+<p><b>Описание:</b> <span th:text="${category.description}"></span></p>
+
+<a th:href="@{/admin/categories}">Назад</a>
+<a th:href="@{/admin/categories/{id}/edit(id=${category.idCategory})}">Редактировать</a>
+</body>
+</html>

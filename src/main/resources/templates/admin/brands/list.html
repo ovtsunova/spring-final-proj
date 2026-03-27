@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Бренды</title>
+</head>
+<body>
+<h1>Бренды</h1>
+
+<a th:href="@{/admin/brands/new}">Добавить бренд</a>
+<a th:href="@{/admin/categories}">Категории</a>
+<a th:href="@{/admin/products}">Товары</a>
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Страна</th>
+        <th>Действия</th>
+    </tr>
+    <tr th:each="brand : ${brands}">
+        <td th:text="${brand.idBrand}"></td>
+        <td th:text="${brand.brandName}"></td>
+        <td th:text="${brand.country}"></td>
+        <td>
+            <a th:href="@{/admin/brands/{id}(id=${brand.idBrand})}">Просмотр</a>
+            <a th:href="@{/admin/brands/{id}/edit(id=${brand.idBrand})}">Редактировать</a>
+            <form th:action="@{/admin/brands/{id}/delete(id=${brand.idBrand})}" method="post" style="display:inline;">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
