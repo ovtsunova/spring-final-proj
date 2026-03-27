@@ -7,6 +7,10 @@
 <body>
 <h1>Товары</h1>
 
+<form th:action="@{/logout}" method="post" style="display:inline;">
+    <button type="submit">Выйти</button>
+</form>
+
 <a th:href="@{/admin/products/new}">Добавить товар</a>
 <a th:href="@{/admin/categories}">Категории</a>
 <a th:href="@{/admin/brands}">Бренды</a>

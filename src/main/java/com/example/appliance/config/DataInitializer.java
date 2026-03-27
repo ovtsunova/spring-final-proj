@@ -54,10 +54,10 @@ public class DataInitializer {
             }
 
             Role adminRole = new Role();
-            adminRole.setRoleLabel("ROLE_ADMIN");
+            adminRole.setRoleLabel("ADMIN");
 
             Role userRole = new Role();
-            userRole.setRoleLabel("ROLE_USER");
+            userRole.setRoleLabel("USER");
 
             roleRepository.save(adminRole);
             roleRepository.save(userRole);

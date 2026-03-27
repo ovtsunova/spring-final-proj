@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+<h1>Регистрация</h1>
+
+<div th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+<form th:action="@{/register}" th:object="${registerForm}" method="post">
+    <div>
+        <label>Имя:</label>
+        <input type="text" th:field="*{firstName}">
+        <div th:errors="*{firstName}"></div>
+    </div>
+
+    <div>
+        <label>Фамилия:</label>
+        <input type="text" th:field="*{lastName}">
+        <div th:errors="*{lastName}"></div>
+    </div>
+
+    <div>
+        <label>Отчество:</label>
+        <input type="text" th:field="*{patronymic}">
+        <div th:errors="*{patronymic}"></div>
+    </div>
+
+    <div>
+        <label>Телефон:</label>
+        <input type="text" th:field="*{phoneNumber}">
+        <div th:errors="*{phoneNumber}"></div>
+    </div>
+
+    <div>
+        <label>Адрес:</label>
+        <input type="text" th:field="*{address}">
+        <div th:errors="*{address}"></div>
+    </div>
+
+    <div>
+        <label>Логин:</label>
+        <input type="text" th:field="*{userLogin}">
+        <div th:errors="*{userLogin}"></div>
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <input type="email" th:field="*{email}">
+        <div th:errors="*{email}"></div>
+    </div>
+
+    <div>
+        <label>Пароль:</label>
+        <input type="password" th:field="*{userPassword}">
+        <div th:errors="*{userPassword}"></div>
+    </div>
+
+    <div>
+        <label>Подтверждение пароля:</label>
+        <input type="password" th:field="*{confirmPassword}">
+        <div th:errors="*{confirmPassword}"></div>
+    </div>
+
+    <button type="submit">Зарегистрироваться</button>
+</form>
+
+<a th:href="@{/login}">Уже есть аккаунт? Войти</a>
+</body>
+</html>
