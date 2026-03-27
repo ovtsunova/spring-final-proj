@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/user-layout :: layout(~{::section})}">
+<section>
+    <h1>Корзина</h1>
+
+    <table>
+        <tr>
+            <th>Товар</th>
+            <th>Цена</th>
+            <th>Количество</th>
+            <th>Сумма</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="item : ${cartItems}">
+            <td th:text="${item.product.productName}"></td>
+            <td th:text="${item.product.price}"></td>
+            <td>
+                <form th:action="@{/cart/update/{id}(id=${item.idCartItem})}" method="post">
+                    <input type="number" name="quantity" th:value="${item.quantity}" min="1" style="width:80px;">
+                    <button class="btn btn-secondary" type="submit">Обновить</button>
+                </form>
+            </td>
+            <td th:text="${item.product.price.multiply(T(java.math.BigDecimal).valueOf(item.quantity))}"></td>
+            <td>
+                <form th:action="@{/cart/remove/{id}(id=${item.idCartItem})}" method="post">
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <h3>Итого: <span th:text="${total}"></span></h3>
+
+    <a class="btn btn-success" th:href="@{/checkout}">Оформить заказ</a>
+</section>
+</body>
+</html>

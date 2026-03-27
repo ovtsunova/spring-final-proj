@@ -1,11 +1,10 @@
 package com.example.appliance.services;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.appliance.models.OrderItem;
 import com.example.appliance.repositories.OrderItemRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class OrderItemService {

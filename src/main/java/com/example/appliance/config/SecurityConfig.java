@@ -111,7 +111,9 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/profile/**",
                                 "/my-orders/**",
-                                "/my-reviews/**"
+                                "/my-reviews/**",
+                                "/cart/**",
+                                "/checkout/**"
                         ).hasRole("USER")
 
                         .anyRequest().authenticated()
