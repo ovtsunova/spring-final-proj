@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/staff-layout :: layout(~{::section})}">
+<section>
+    <h1>Просмотр аккаунта</h1>
+
+    <p><strong>ID:</strong> <span th:text="${account.idAccount}"></span></p>
+    <p><strong>Логин:</strong> <span th:text="${account.userLogin}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${account.email}"></span></p>
+    <p><strong>Роль:</strong> <span th:text="${account.role != null ? account.role.roleLabel : '-'}"></span></p>
+
+    <a class="btn btn-secondary" th:href="@{/staff/accounts}">Назад</a>
+    <a class="btn btn-primary" th:href="@{/staff/accounts/{id}/edit(id=${account.idAccount})}">Редактировать</a>
+</section>
+</body>
+</html>

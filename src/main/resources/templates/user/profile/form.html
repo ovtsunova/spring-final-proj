@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/user-layout :: layout(~{::section})}">
+<section>
+    <h1>Редактирование профиля</h1>
+
+    <form th:action="@{/profile/edit}" th:object="${customer}" method="post">
+        <label>Имя:</label>
+        <input type="text" th:field="*{firstName}">
+        <div class="field-error" th:errors="*{firstName}"></div>
+
+        <label>Фамилия:</label>
+        <input type="text" th:field="*{lastName}">
+        <div class="field-error" th:errors="*{lastName}"></div>
+
+        <label>Отчество:</label>
+        <input type="text" th:field="*{patronymic}">
+        <div class="field-error" th:errors="*{patronymic}"></div>
+
+        <label>Телефон:</label>
+        <input type="text" th:field="*{phoneNumber}">
+        <div class="field-error" th:errors="*{phoneNumber}"></div>
+
+        <label>Адрес:</label>
+        <input type="text" th:field="*{address}">
+        <div class="field-error" th:errors="*{address}"></div>
+
+        <button class="btn btn-success" type="submit">Сохранить</button>
+        <a class="btn btn-secondary" th:href="@{/profile}">Назад</a>
+    </form>
+</section>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазин бытовой техники</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="page-container header-top">
+        <h1>Магазин бытовой техники</h1>
+
+        <div class="top-links">
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">Вход</a>
+                <a th:href="@{/register}">Регистрация</a>
+            </div>
+
+            <div sec:authorize="isAuthenticated()" class="user-panel">
+                <span>
+                    Вы вошли как: <strong sec:authentication="name"></strong>
+                </span>
+
+                <a sec:authorize="hasRole('USER')" th:href="@{/profile}">Профиль</a>
+                <a sec:authorize="hasRole('USER')" th:href="@{/my-orders}">Мои заказы</a>
+
+                <a sec:authorize="hasAnyRole('ADMIN','MANAGER')" th:href="@{/staff/products}">
+                    Служебная панель
+                </a>
+
+                <form th:action="@{/logout}" method="post" class="inline-form">
+                    <button type="submit" class="btn-danger">Выйти</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="page-container">
+    <section class="catalog-section">
+        <h2>Каталог товаров</h2>
+
+        <div class="products-grid">
+            <div class="product-card" th:each="product : ${products}">
+                <img th:src="${product.imageUrl}" alt="Товар">
+
+                <h3 th:text="${product.productName}"></h3>
+
+                <p>
+                    <strong>Модель:</strong>
+                    <span th:text="${product.model}"></span>
+                </p>
+
+                <p>
+                    <strong>Цена:</strong>
+                    <span th:text="${product.price}"></span>
+                </p>
+
+                <p>
+                    <strong>Категория:</strong>
+                    <span th:text="${product.category.categoryName}"></span>
+                </p>
+
+                <p>
+                    <strong>Бренд:</strong>
+                    <span th:text="${product.brand.brandName}"></span>
+                </p>
+
+                <a class="btn" th:href="@{/products/{id}(id=${product.idProduct})}">
+                    Подробнее
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

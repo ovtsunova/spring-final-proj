@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/staff-layout :: layout(~{::section})}">
+<section>
+    <h1>Категории</h1>
+
+    <a class="btn btn-success" th:href="@{/staff/categories/new}">Добавить категорию</a>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Действия</th>
+        </tr>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.idCategory}"></td>
+            <td th:text="${category.categoryName}"></td>
+            <td th:text="${category.description}"></td>
+            <td class="actions">
+                <a class="btn btn-primary" th:href="@{/staff/categories/{id}(id=${category.idCategory})}">Просмотр</a>
+                <a class="btn btn-secondary" th:href="@{/staff/categories/{id}/edit(id=${category.idCategory})}">Редактировать</a>
+                <form th:action="@{/staff/categories/{id}/delete(id=${category.idCategory})}" method="post" style="display:inline;">
+                    <button class="btn btn-danger" type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</section>
+</body>
+</html>

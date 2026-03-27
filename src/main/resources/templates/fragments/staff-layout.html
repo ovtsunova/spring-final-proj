@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle} ?: 'Служебная панель'">Служебная панель</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:fragment="layout(content)">
+    <div class="staff-layout">
+
+        <aside class="staff-sidebar">
+            <h2>Служебная панель</h2>
+
+            <div class="staff-user-info">
+                <p>
+                    <strong>Вы вошли как:</strong>
+                    <span sec:authentication="name"></span>
+                </p>
+            </div>
+
+            <nav class="staff-nav">
+                <a th:href="@{/staff/products}">Товары</a>
+                <a th:href="@{/staff/categories}">Категории</a>
+                <a th:href="@{/staff/brands}">Бренды</a>
+                <a th:href="@{/staff/customers}">Клиенты</a>
+                <a th:href="@{/staff/orders}">Заказы</a>
+                <a th:href="@{/staff/order-items}">Позиции заказов</a>
+                <a th:href="@{/staff/reviews}">Отзывы</a>
+                <a th:href="@{/staff/payments}">Оплаты</a>
+
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/staff/accounts}">Аккаунты</a>
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/staff/roles}">Роли</a>
+            </nav>
+
+            <form th:action="@{/logout}" method="post" class="staff-logout-form">
+                <button type="submit" class="btn-danger">Выйти из аккаунта</button>
+            </form>
+        </aside>
+
+        <main class="staff-content">
+            <div class="page-card" th:replace="${content}"></div>
+        </main>
+
+    </div>
+</div>
+</body>
+</html>

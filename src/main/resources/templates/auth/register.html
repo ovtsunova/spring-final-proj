@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-page">
+
+<div class="auth-card">
+    <h1>Регистрация</h1>
+
+    <!-- Общая ошибка -->
+    <div class="error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+    <form class="auth-form" th:action="@{/register}" th:object="${registerForm}" method="post">
+
+        <div class="form-group">
+            <label>Имя:</label>
+            <input type="text" th:field="*{firstName}">
+            <div class="error" th:errors="*{firstName}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Фамилия:</label>
+            <input type="text" th:field="*{lastName}">
+            <div class="error" th:errors="*{lastName}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Отчество:</label>
+            <input type="text" th:field="*{patronymic}">
+            <div class="error" th:errors="*{patronymic}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Телефон:</label>
+            <input type="text" th:field="*{phoneNumber}">
+            <div class="error" th:errors="*{phoneNumber}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Адрес:</label>
+            <input type="text" th:field="*{address}">
+            <div class="error" th:errors="*{address}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Логин:</label>
+            <input type="text" th:field="*{userLogin}">
+            <div class="error" th:errors="*{userLogin}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" th:field="*{email}">
+            <div class="error" th:errors="*{email}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Пароль:</label>
+            <input type="password" th:field="*{userPassword}">
+            <div class="error" th:errors="*{userPassword}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Подтверждение пароля:</label>
+            <input type="password" th:field="*{confirmPassword}">
+            <div class="error" th:errors="*{confirmPassword}"></div>
+        </div>
+
+        <div class="auth-actions">
+            <button type="submit">Зарегистрироваться</button>
+        </div>
+    </form>
+
+    <p style="margin-top:18px;text-align:center;">
+        <a th:href="@{/login}">Уже есть аккаунт? Войти</a>
+    </p>
+</div>
+
+</body>
+</html>

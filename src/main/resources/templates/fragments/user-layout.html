@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle} ?: 'Магазин'">Магазин</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<div th:fragment="layout(content)">
+
+    <header class="site-header">
+        <div class="page-container nav">
+
+            <div class="nav-left">
+                <a th:href="@{/}">Главная</a>
+                <a th:href="@{/my-orders}">Мои заказы</a>
+                <a th:href="@{/my-reviews}">Мои отзывы</a>
+                <a th:href="@{/profile}">Профиль</a>
+            </div>
+
+            <div class="nav-right">
+                <span>
+                    Вы вошли как:
+                    <strong sec:authentication="name"></strong>
+                </span>
+
+                <form th:action="@{/logout}" method="post" class="inline-form nav-logout-form">
+                    <button type="submit" class="btn-danger">Выйти</button>
+                </form>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="page-container page-content">
+        <div class="page-card" th:replace="${content}"></div>
+    </main>
+
+</div>
+</body>
+</html>

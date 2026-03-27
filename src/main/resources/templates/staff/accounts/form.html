@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/staff-layout :: layout(~{::section})}">
+<section>
+    <h1 th:text="${formTitle}"></h1>
+
+    <div class="field-error" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+    <form th:action="${account.idAccount == null} ? @{/staff/accounts} : @{/staff/accounts/{id}(id=${account.idAccount})}"
+          th:object="${account}"
+          method="post">
+
+        <label>Логин:</label>
+        <input type="text" th:field="*{userLogin}">
+        <div class="field-error" th:if="${#fields.hasErrors('userLogin')}" th:errors="*{userLogin}"></div>
+
+        <label>Пароль:</label>
+        <input type="password" th:field="*{userPassword}">
+        <div class="field-error" th:if="${#fields.hasErrors('userPassword')}" th:errors="*{userPassword}"></div>
+
+        <p th:if="${account.idAccount != null}">
+            Оставьте поле пустым, если не хотите менять пароль.
+        </p>
+
+        <label>Email:</label>
+        <input type="email" th:field="*{email}">
+        <div class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+        <label>Роль:</label>
+        <select name="roleId">
+            <option th:each="role : ${roles}"
+                    th:value="${role.idRole}"
+                    th:text="${role.roleLabel}"
+                    th:selected="${account.role != null and account.role.idRole == role.idRole}">
+            </option>
+        </select>
+
+        <button class="btn btn-success" type="submit">Сохранить</button>
+        <a class="btn btn-secondary" th:href="@{/staff/accounts}">Назад</a>
+    </form>
+</section>
+</body>
+</html>

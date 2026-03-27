@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body th:replace="~{fragments/staff-layout :: layout(~{::section})}">
+<section>
+    <h1>Просмотр роли</h1>
+
+    <p><strong>ID:</strong> <span th:text="${role.idRole}"></span></p>
+    <p><strong>Название роли:</strong> <span th:text="${role.roleLabel}"></span></p>
+
+    <a class="btn btn-secondary" th:href="@{/staff/roles}">Назад</a>
+    <a class="btn btn-primary" th:href="@{/staff/roles/{id}/edit(id=${role.idRole})}">Редактировать</a>
+</section>
+</body>
+</html>
